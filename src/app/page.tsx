@@ -1,10 +1,11 @@
 import { db } from "@/lib/db";
 import { products } from "@/lib/db/schema";
 import { ProductCard } from "@/components/ProductCard";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Pizza } from "lucide-react";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { Pagination } from "@/components/Pagination";
 
-const ITEMS_PER_PAGE = 3; 
+const ITEMS_PER_PAGE = 3;
 
 export default async function Home({
   searchParams,
@@ -20,80 +21,36 @@ export default async function Home({
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedProducts = allProducts.slice(offset, offset + ITEMS_PER_PAGE);
 
-  const getVisiblePages = () => {
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-      if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
-        pages.push(i);
-      } else if (pages[pages.length - 1] !== "...") {
-        pages.push("...");
-      }
-    }
-    return pages;
-  };
-
   return (
-    <main className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
-      <div className="container mx-auto px-4 py-10">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-amber-100 px-4 py-2 rounded-full text-amber-700 mb-4">
-            <Pizza className="w-4 h-4" /> Pizzeria Italia
+    <>
+      <Header />
+      <main className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+        {/* Hero секция */}
+        <div className="bg-gradient-to-r from-amber-600 to-red-600 text-white py-16 mb-10">
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="text-4xl md:text-5xl font-black mb-4">Доставка пиццы за 30 минут</h1>
+            <p className="text-lg opacity-90">Скидка 20% на первый заказ по промокоду PIZZA20</p>
           </div>
-          <h1 className="text-5xl font-black text-gray-800">Наши пиццы</h1>
-          <p className="text-gray-500 mt-2">8 сочных пицц на любой вкус</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {paginatedProducts.map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
-        </div>
+        <div className="container mx-auto px-4 pb-12">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-800">Наши пиццы</h2>
+            <p className="text-gray-500 mt-2">{totalCount} сочных пицц на любой вкус</p>
+          </div>
 
-        {totalPages > 1 && (
-          <div className="flex justify-center items-center gap-2 mt-10">
-            <Button
-              variant="outline"
-              size="icon"
-              asChild
-              className={`rounded-full ${currentPage === 1 && "opacity-50 pointer-events-none"}`}
-            >
-              <a href={currentPage === 1 ? "#" : `/?page=${currentPage - 1}`}>
-                <ChevronLeft className="h-4 w-4" />
-              </a>
-            </Button>
-
-            {getVisiblePages().map((page, idx) => (
-              typeof page === "number" ? (
-                <Button
-                  key={idx}
-                  variant={currentPage === page ? "default" : "outline"}
-                  asChild
-                  className={`rounded-full w-10 h-10 ${currentPage === page ? "bg-amber-500 hover:bg-amber-600" : "hover:bg-amber-50"}`}
-                >
-                  <a href={`/?page=${page}`}>{page}</a>
-                </Button>
-              ) : (
-                <span key={idx} className="px-2 text-gray-400">...</span>
-              )
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {paginatedProducts.map((product) => (
+              <ProductCard key={product.id} {...product} />
             ))}
-
-            <Button
-              variant="outline"
-              size="icon"
-              asChild
-              className={`rounded-full ${currentPage === totalPages && "opacity-50 pointer-events-none"}`}
-            >
-              <a href={currentPage === totalPages ? "#" : `/?page=${currentPage + 1}`}>
-                <ChevronRight className="h-4 w-4" />
-              </a>
-            </Button>
           </div>
-        )}
 
-        <footer className="text-center text-gray-400 text-sm mt-12 pt-6 border-t">
-          © 2025 Pizzeria Italia
-        </footer>
-      </div>
-    </main>
+          {totalPages > 1 && (
+            <Pagination currentPage={currentPage} totalPages={totalPages} />
+          )}
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }

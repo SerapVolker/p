@@ -1,4 +1,3 @@
-// src/components/ProductCard.tsx
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 

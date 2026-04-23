@@ -15,7 +15,7 @@ const pizzas = [
 async function seed() {
   console.log("🌱 Создаём таблицу и добавляем пиццы...");
   
-  // Создаём таблицу если её нет
+
   await db.run(`
     CREATE TABLE IF NOT EXISTS products (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,7 +26,7 @@ async function seed() {
     )
   `);
   
-  // Добавляем пиццы
+
   for (const pizza of pizzas) {
     await db.insert(products).values(pizza);
   }
