@@ -4,6 +4,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Pagination } from "@/components/Pagination";
+import { NewsCarousel } from "@/components/NewsCarousel";
 
 const ITEMS_PER_PAGE = 3;
 
@@ -25,15 +26,18 @@ export default async function Home({
     <>
       <Header />
       <main className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
-        {/* Hero секция */}
-        <div className="bg-gradient-to-r from-amber-600 to-red-600 text-white py-16 mb-10">
+      
+        <div className="bg-gradient-to-r from-amber-600 to-red-600 text-white py-12 mb-8">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-black mb-4">Доставка пиццы за 30 минут</h1>
-            <p className="text-lg opacity-90">Скидка 20% на первый заказ по промокоду PIZZA20</p>
+            <h1 className="text-4xl md:text-5xl font-black mb-3">Доставка пиццы за 30 минут</h1>
+            <p className="text-lg opacity-90">Горячая и свежая пицца прямо к вашему столу</p>
           </div>
         </div>
 
         <div className="container mx-auto px-4 pb-12">
+          
+          <NewsCarousel />
+
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-gray-800">Наши пиццы</h2>
             <p className="text-gray-500 mt-2">{totalCount} сочных пицц на любой вкус</p>
