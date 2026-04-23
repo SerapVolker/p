@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Pagination } from "@/components/Pagination";
 import { NewsCarousel } from "@/components/NewsCarousel";
+import { Map } from "@/components/Map";
 
 const ITEMS_PER_PAGE = 3;
 
@@ -26,20 +27,20 @@ export default async function Home({
     <>
       <Header />
       <main className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
-      
+  
         <div className="bg-gradient-to-r from-amber-600 to-red-600 text-white py-12 mb-8">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-black mb-3">Доставка пиццы за 30 минут</h1>
+            <h1 className="text-4xl md:text-5xl font-black mb-3">Pizzeria Italia</h1>
             <p className="text-lg opacity-90">Горячая и свежая пицца прямо к вашему столу</p>
           </div>
         </div>
 
         <div className="container mx-auto px-4 pb-12">
-          
+        
           <NewsCarousel />
 
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-gray-800">Наши пиццы</h2>
+            <h2 className="text-3xl font-bold text-gray-800">Каталог пицц</h2>
             <p className="text-gray-500 mt-2">{totalCount} сочных пицц на любой вкус</p>
           </div>
 
@@ -53,6 +54,9 @@ export default async function Home({
             <Pagination currentPage={currentPage} totalPages={totalPages} />
           )}
         </div>
+
+
+        <Map />
       </main>
       <Footer />
     </>
